@@ -43,15 +43,7 @@ class Div(BinExp):
     def __init__(self, left, right) -> None:
         super().__init__(left, right)
     def calc(self):
-        x = self.left.calc()
-        y = self.left.calc()
-        if y != 0:
-            return x / y
-        elif x == 0:
-            return float('nan')
-        else:
-            sign = 1 if x > 0 else -1
-            return sign*inf
+        return self.left.calc() / self.right.calc()
 
 def main():
     a = Num(345)
@@ -59,8 +51,8 @@ def main():
     c = Num(1296)
     d = Num(216)
     #express = "345/5-(1296/216)"
-    calculation = Minus(Div(a,b),Div(c,d)).calc()
+    calculation1 = Minus(Div(a,b),Div(c,d))
     res = 345/5-(1296/216)
-    print(calculation,res)
+    print(calculation1.calc()==res)
 main()
 
