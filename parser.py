@@ -13,7 +13,7 @@ class Num(ABC):
         super().__init__()
         self.x = x
     def calc(self)->double:
-        return double(x)
+        return self.x
     
 class BinExp(ABC):
     def __init__(self,left,right) -> None:
@@ -63,44 +63,44 @@ def parser(expression)->double:
             num_string = expression[i:lsd]
 
             parsed_num = float(num_string)
-            Q.push(Num(parsed_num))
+            Q.append(Num(parsed_num))
             i=lsd
         else:
             char = expression[i]
             #print(char)
             if char == "(" or char == "/" or char =="*":
-                S.push(char)
+                S.append(char)
             elif char == "-" or char == "+":
                 #NEED TO CONSERVE ORDER OF OPERATIONS: All DIV AND MUL OPS MUST COME BEFORE PLUS AND MINUS OPS
                 while S:
                     stack_top = S.pop()
                     if stack_top == "/" or stack_top == "*":
-                        Q.push(stack_top)
+                        Q.append(stack_top)
                     else:
                         break
-                S.push(char)
+                S.append(char)
             elif char == ")":#need to pop all stack items into the queue,until we reach an (
                 while S:
                     stack_top = S.pop()
                     if stack_top == "(":
                         break
                     else:
-                        Q.push(stack_top)
+                        Q.append(stack_top)
             i+=1
 
     #Now, to dump what operations may remain in the Stack into the Queue
 
     while S:
-        Q.push(S.pop())
+        Q.append(S.pop())
 
     #--------FINISHED going over input expression and preparing the output queue--------------
 
     #Now, I must dequeue all the numbers into the stack until meeting an op, perform that op on the stack head
-    #and its predecessor, pop `em, and push the result of the op into the stack
+    #and its predecessor, pop `em, and append the result of the op into the stack
     while Q:
         element = Q.pop(0)
-        if element.isnumeric():
-            S.push(Num(float(element)))
+        if isinstance(element,Num):
+            S.append(element)
         else:
             op2 = S.pop()
             op1 = S.pop()
@@ -113,9 +113,9 @@ def parser(expression)->double:
                 res = Minus(op1,op2)
             elif element == "+":
                 res = Plus(op1,op2)
-            S.push(res.calc())
+            S.append(Num(res.calc()))
 
-    return S.pop()
+    return S.pop().calc()
 
 def extract_whole_number(expression,start_index):
     i = start_index
