@@ -7,10 +7,9 @@ def extract_whole_number(expression,start_index):
         i+=1
 
     return i
-def main2():
+def parser(expression):
     Q = Queue()
     S = Stack()
-    expression = "1+(23*333*81123759+51235*((37-1)/2))-3"
     i=0
     #NOTE to self: there are multiple iterations occouring:
     #               1.The external one,for the input expression, going over characters one by one
@@ -23,13 +22,13 @@ def main2():
         if expression[i].isnumeric():   
             lsd = extract_whole_number(expression,i)
             num_string = expression[i:lsd]
-            print(num_string)
+            #print(num_string)
             Q.enqueue(num_string)#maybe just enqueue the number itself?
             #parsed_num = float(num_string)
             i=lsd
         else:
             char = expression[i]
-            print(char)
+            #print(char)
             if char == "(" or char == "/" or char =="*":
                 S.push(char)
             elif char == "-" or char == "+":
@@ -49,18 +48,18 @@ def main2():
                     else:
                         Q.enqueue(stack_top)
             i+=1
-    print("prepared Stack and Queue:\n")
-    Q.printQueue()
-    S.printStack()
+    # print("prepared Stack and Queue:\n")
+    # Q.printQueue()
+    # S.printStack()
     #Now, to dump what operations may remain in the Stack into the Queue
 
     while not S.is_empty():
         Q.enqueue(S.pop())
 
     #--------FINISHED going over input expression and preparing the output queue--------------
-    print("popped rest of Stack into the Queue:\n")
-    Q.printQueue()
-    S.printStack()
+    # print("popped rest of Stack into the Queue:\n")
+    # Q.printQueue()
+    # S.printStack()
     #Now, I must dequeue all the numbers into the stack until meeting an op, perform that op on the stack head
     #and its predecessor, pop `em, and push the result of the op into the stack
     while not Q.is_empty():
@@ -80,8 +79,14 @@ def main2():
             elif element == "+":
                 res = op1+op2
             S.push(res)
-    print("After evaluating the expression. Queue SHOULD BE EMPTY, and S should have on element, the eval result:\n")
-    Q.printQueue()
-    S.printStack()
+    # print("After evaluating the expression. Queue SHOULD BE EMPTY, and S should have on element, the eval result:\n")
+    # Q.printQueue()
+    # S.printStack()
+    return S.pop()
+
+def main2():
+    expression = "1+(23*333*81123759+51235*((37-1)/2))-3"
+    res = parser(expression)
+    print(f"{expression} = {res}")
 
 main2()
