@@ -95,32 +95,44 @@ def parser(exp):
             if c=="*" or c=="/":
                 S.push(c)
         i=i+1
-    #finished going over expression and making the Queue and the stack. Print statuses:
-    print("finished going over expression and making the Queue and the stack. Print statuses:")
-    print("Stack is: ")
-    S.printStack()
-    print("Queue is: ")
-    Q.printQueue()
+    #finished going over expression and making the Queue and the stack.
     #Now, to empty the rest of the stack to the queue
     while not S.isEmpty():
         x = S.pop()
         if x is not None:
             Q.enqueue(x)
-    print("Empying stack into queue...")
+    # print("Empying stack into queue...")
+    # print("Stack is: ")
+    # S.printStack()
+    # print("Queue is: ")
+    # Q.printQueue()
+    #now, to put numbers in Stack
+    while Q.first is not None:
+        if Q.first.val.isnumeric():
+            S.push(float(Q.first.val))
+        else:
+            y = S.pop()
+            x = S.pop()
+            op = Q.first.val
+            print(f"op is {op}")
+            if op=="/":
+                S.push(x/y)
+            elif op=="*":
+                S.push(x*y)
+            elif op=="-":
+                S.push(x-y)
+            elif op=="+":
+                S.push(x+y)
+        Q.dequeue()
+            
+    Q.printQueue()
+    #emptied the first numbers in the queue to the stack
     print("Stack is: ")
     S.printStack()
     print("Queue is: ")
     Q.printQueue()
+    return S.pop()
 
-parser("1+3-(5/2)+3/2")
-# S = Stack()
-# S.push(1)
-# S.push(2)
-# S.push(3)
-# S.push(9)
-# S.push(7)
-# S.push(9)
+retval = parser("3-(5/2)")
 
-# while(S.isEmpty() is False):
-#     print("Popped"+str(S.pop()))
-#     S.printStack()
+print(f"expression is equal to: {retval}")
