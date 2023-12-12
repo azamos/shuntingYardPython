@@ -27,24 +27,27 @@ def main2():
             Q.enqueue(num_string)#maybe just enqueue the number itself?
             #parsed_num = float(num_string)
             i=lsd
-            if i==len(expression):
-                print("\nWTF2\n")
-                break
         else:
-            # char = expression[i]
-            # print(char)
-            # if char == "(" or char == "/" or char =="*":
-            #     S.push(char)
-            # elif char == "-" or char == "+":
-            #     #NEED TO CONSERVE ORDER OF OPERATIONS: All DIV AND MUL OPS MUST COME BEFORE PLUS AND MINUS OPS
-            #     p = S.last
-            #     while not S.is_empty() and (p=="*" or p=="/"):
-            #         Q.enqueue(S.pop())
-            #     S.push(char)
-            # elif char == ")":#need to pop all stack items into the queue,until we reach an (
-            #     p = S.last
-            #     while S.last!="(":
-            #         Q.enqueue(S.pop())
+            char = expression[i]
+            print(char)
+            if char == "(" or char == "/" or char =="*":
+                S.push(char)
+            elif char == "-" or char == "+":
+                #NEED TO CONSERVE ORDER OF OPERATIONS: All DIV AND MUL OPS MUST COME BEFORE PLUS AND MINUS OPS
+                while not S.is_empty():
+                    stack_top = S.pop()
+                    if stack_top == "/" or stack_top == "*":
+                        Q.enqueue(stack_top)
+                    else:
+                        break
+                S.push(char)
+            elif char == ")":#need to pop all stack items into the queue,until we reach an (
+                while not S.is_empty():
+                    stack_top = S.pop()
+                    if stack_top == "(":
+                        break
+                    else:
+                        Q.enqueue(stack_top)
             i+=1
     print("prepared Stack and Queue:\n")
     Q.printQueue()
@@ -60,25 +63,25 @@ def main2():
     S.printStack()
     #Now, I must dequeue all the numbers into the stack until meeting an op, perform that op on the stack head
     #and its predecessor, pop `em, and push the result of the op into the stack
-    # while not Q.is_empty():
-    #     element = Q.dequeue()
-    #     if element.isnumeric():
-    #         S.push(float(element))
-    #     else:
-    #         op2 = S.pop()
-    #         op1 = S.pop()
-    #         res = 0
-    #         if element == "/":
-    #             res = op1/op2
-    #         elif element == "*":
-    #             res = op1*op2
-    #         elif element == "-":
-    #             res = op1-op2
-    #         elif element == "+":
-    #             res = op1+op2
-    #         S.push(res)
-    # print("After evaluating the expression. Queue SHOULD BE EMPTY, and S should have on element, the eval result:\n")
-    # Q.printQueue()
-    # S.printStack()
+    while not Q.is_empty():
+        element = Q.dequeue()
+        if element.isnumeric():
+            S.push(float(element))
+        else:
+            op2 = S.pop()
+            op1 = S.pop()
+            res = 0
+            if element == "/":
+                res = op1/op2
+            elif element == "*":
+                res = op1*op2
+            elif element == "-":
+                res = op1-op2
+            elif element == "+":
+                res = op1+op2
+            S.push(res)
+    print("After evaluating the expression. Queue SHOULD BE EMPTY, and S should have on element, the eval result:\n")
+    Q.printQueue()
+    S.printStack()
 
 main2()

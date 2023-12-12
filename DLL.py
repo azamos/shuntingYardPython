@@ -59,6 +59,9 @@ class Stack(DLL):
     def pop(self):
         return self.delete(fifo=False)
     def printStack(self):
+        if self.is_empty():
+            print("Stack is EMPTY")
+            return
         #Print From last to first
         p = self.last
         i = 1
@@ -77,6 +80,9 @@ class Queue(DLL):
     def dequeue(self):
         return self.delete(fifo=True)
     def printQueue(self):
+        if self.is_empty():
+            print("Queue is EMPTY")
+            return
         #Print From first to last
         p = self.first
         i = 1
