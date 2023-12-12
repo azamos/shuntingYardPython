@@ -106,6 +106,10 @@ def parser(exp):
     # S.printStack()
     # print("Queue is: ")
     # Q.printQueue()
+    print("Stack is: ")
+    S.printStack()
+    print("Queue is: ")
+    Q.printQueue()
     #now, to put numbers in Stack
     while Q.first is not None:
         if Q.first.val.isnumeric():
@@ -127,12 +131,11 @@ def parser(exp):
             
     Q.printQueue()
     #emptied the first numbers in the queue to the stack
-    print("Stack is: ")
-    S.printStack()
-    print("Queue is: ")
-    Q.printQueue()
+    # print("Stack is: ")
+    # S.printStack()
+    # print("Queue is: ")
+    # Q.printQueue()
     return S.pop()
 
-retval = parser("3-(5/2)")
-
-print(f"expression is equal to: {retval}")
+retval = parser("1+(5*5*8)*(3-(5/2))")
+print(f"expression is equal to {retval}")
