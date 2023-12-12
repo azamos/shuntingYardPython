@@ -87,25 +87,25 @@ class Queue(DLL):
             p = p.next
         print(f"\nLast item in the Queue is  {self.last.val}\n")
     
-S = Stack()
-Q = Queue()
-for i in range(1,10):
-    S.push(i**2)
-    Q.enqueue((2*i)**2)
-print("Printing the stack, S: ")
-S.printStack()
-print("Printing the queue, Q: ")
-Q.printQueue()   
+# S = Stack()
+# Q = Queue()
+# for i in range(1,10):
+#     S.push(i**2)
+#     Q.enqueue((2*i)**2)
+# print("Printing the stack, S: ")
+# S.printStack()
+# print("Printing the queue, Q: ")
+# Q.printQueue()   
 
-###################
-#popping top of the stack, and dequeing the queue
-print(f"Popped stack: {S.pop()}")
-print(f"Dequeued queue: {Q.dequeue()}")
-print("-----------------AFTER POPPING AND DEQUEUEING---------------------")
-print("Printing the stack, S: ")
-S.printStack()
-print("Printing the queue, Q: ")
-Q.printQueue()   
+# ###################
+# #popping top of the stack, and dequeing the queue
+# print(f"Popped stack: {S.pop()}")
+# print(f"Dequeued queue: {Q.dequeue()}")
+# print("-----------------AFTER POPPING AND DEQUEUEING---------------------")
+# print("Printing the stack, S: ")
+# S.printStack()
+# print("Printing the queue, Q: ")
+# Q.printQueue()   
 
 
             
