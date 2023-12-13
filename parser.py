@@ -67,7 +67,6 @@ def parser(expression)->double:
             i=lsd
         else:
             char = expression[i]
-            #print(char)
             if char == "(" or char == "/" or char =="*":
                 S.append(char)
             elif char == "-" or char == "+":
@@ -77,6 +76,7 @@ def parser(expression)->double:
                     if stack_top == "/" or stack_top == "*":
                         Q.append(stack_top)
                     else:
+                        S.append(stack_top)#I forgot to return the stack top, causing issues
                         break
                 S.append(char)
             elif char == ")":#need to pop all stack items into the queue,until we reach an (
@@ -102,6 +102,8 @@ def parser(expression)->double:
         if isinstance(element,Num):
             S.append(element)
         else:
+            if len(S)<2:
+                continue
             op2 = S.pop()
             op1 = S.pop()
             res = 0
